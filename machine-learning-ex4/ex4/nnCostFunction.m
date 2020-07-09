@@ -22,6 +22,13 @@ Theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
 Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
                  num_labels, (hidden_layer_size + 1));
 
+printf("Size before forwards pass: ");
+t1 = Theta1;
+t2 = Theta2;
+% size(Theta1)
+% size(Theta2)
+
+
 % Setup some useful variables
 m = size(X, 1);
 X = [ones(m, 1) X];
@@ -106,11 +113,37 @@ ans = -1*actual.*log(preds)-(1-actual).*log(1-preds);
 % ans = -1*y.*log(yHat)-(1-y).*log(1-yHat);
 % ans(3);
 ansNoReg = (1/m)*sum(sum(ans));
-J = ansNoReg;
+% J = ansNoReg;
 
-% reg = (lambda/(2*m))*sum(theta(2:size(theta)(1)) .^ 2);
+%
+%
+%
+%
+%
+%
 
-% J = ansNoReg + reg;
+% size(Theta1)
+% size(Theta2)
+
+% size(Theta1(2))
+% size(Theta2)(2)
+
+% size(Theta1(:, 1:400))
+% size(Theta2(:, 1:25))
+
+% if t1 == Theta1
+%   printf("t1 match\n");
+% endif
+%
+% if t2 == Theta2
+%   printf("t2 match\n");
+% endif
+
+% Theta1(1, 401-5: 401)
+
+reg = (lambda/(2*m))*( sum(sum(Theta1(:, 2:size(Theta1)(2)) .^ 2)) + sum(sum(Theta2(:, 2:size(Theta2)(2)) .^ 2)) );
+% reg = (lambda/(2*m))*( sum(sum(Theta1(:, 1:400) .^ 2)) + sum(sum(Theta2(:, 1:25) .^ 2)) );
+J = ansNoReg + reg;
 
 
 
